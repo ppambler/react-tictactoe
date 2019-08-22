@@ -23,6 +23,19 @@ const Header2 = function(props) {
     </header>  
   )
 }
+const Bottom2 = function() {
+  const [n, setN] = React.useState(0)
+  return (
+    <div>
+      {n}
+      {React.createElement('button',{
+        onClick: function() {
+          setN(n+1)
+        }
+      },'+1')}
+    </div>
+  )
+}
 const div = (
   <div>
     {Header}
@@ -32,6 +45,7 @@ const div = (
       <span>我是一个span</span>
     </p>
     {Bottom}
+    <Bottom2 />
   </div>
 )
 
