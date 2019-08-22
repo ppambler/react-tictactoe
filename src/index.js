@@ -1,29 +1,14 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 const div = (
-  t('div',
-    t('p',
-      t('span', '我是一个span')))
+  React.createElement('div', null,
+    React.createElement('p', null,
+      React.createElement('span', null, '我是一个span')))
 )
 
-const div2 = (
-  <div>
-    <p>
-      <span>'我是一个span'</span>
-    </p>  
-  </div>
-)
+console.log(div) //element 是个虚拟的DOM，类型是对象
+
+ReactDOM.render(div, document.getElementById('root'))
 
 
-document.body.appendChild(div)
-
-function t(tagName, children) {
-  const element = document.createElement(tagName)
-  if (children) {
-    if (typeof children === 'string') {
-      let childrenTextNode = document.createTextNode(children)
-      element.appendChild(childrenTextNode)
-    } else {
-      element.appendChild(children)
-    }
-  }
-  return element
-}
