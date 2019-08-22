@@ -1,15 +1,19 @@
-console.log('hi')
-
-const div = createElement('div')
-const p = createElement('p')
-const span = createElement('span')
-
-div.appendChild(p)
-p.appendChild(span)
-span.innerText = '我是一个span'
+const div = createElement('div', 
+                createElement('p', 
+                  createElement('span', '我是一个span')))
+                                  
 
 document.body.appendChild(div)
 
-function createElement(tagName) {
-  return document.createElement(tagName)
+function createElement(tagName, children) {
+  const element = document.createElement(tagName)
+  if(children) {
+    if(typeof children === 'string') {
+      let childrenTextNode = document.createTextNode(children)
+      element.appendChild(childrenTextNode)
+    } else {
+      element.appendChild(children)
+    }
+  }
+  return element
 }
