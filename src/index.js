@@ -28,11 +28,11 @@ const Bottom2 = function() {
   return (
     <div>
       {n}
-      {React.createElement('button',{
-        onClick: function() {
+      <button onClick={
+        function() {
           setN(n+1)
         }
-      },'+1')}
+      }>+1</button>
     </div>
   )
 }
