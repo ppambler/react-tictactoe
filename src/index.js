@@ -6,12 +6,24 @@ import ReactDOM from 'react-dom';
 //     React.createElement('p', null,
 //       React.createElement('span', null, '我是一个span')))
 // )
+const Header = (
+  <header>
+    header
+  </header>
+)
 
+const Bottom = (
+  <div>
+    bottom
+  </div>
+)
 const div = (
   <div>
+    {Header}
     <p>
       <span>我是一个span</span>
     </p>
+    {Bottom}
   </div>
 )
 
