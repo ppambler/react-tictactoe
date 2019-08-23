@@ -14,12 +14,13 @@ const Cell = function (props) {
 }
 
 const Chessboard = function () {
-
+  console.log('我多次执行了？')
   const [cells, setCells] = useState([
     [null, null, null],
     [null, null, null],
     [null, null, null],
   ])
+  console.log(useState(0))
   const [n, setN] = useState(0)
   const tell = () => {
     console.log('tell 判断谁赢了')
@@ -27,10 +28,16 @@ const Chessboard = function () {
   const onClickCell = (row, col) => {
     console.log('click')
     setN(n + 1)
+    // setN(n + 1) //只能设置一次值
+    console.log(setN(n + 1)) //undefined
+    console.log(n) //0
     const copy = JSON.parse(JSON.stringify(cells))
     copy[row][col] = n % 2 === 0 ? 'x' : 'o'
     setCells(copy)
     tell()
+    // setTimeout(() => {
+    //   console.log(setN(n + 1))
+    // }, 2000)
   }
   return (
     <div>
@@ -49,6 +56,7 @@ const Chessboard = function () {
     </div>
   )
 }
+
 
 ReactDOM.render(<div>
   <Chessboard />
