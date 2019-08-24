@@ -70,7 +70,6 @@ const Chessboard = function () {
     if (cells[row][col]) {
       return
     }
-    console.log(n)
     setN(n + 1)
     cells[row][col] = n % 2 === 0 ? 'x' : 'o'
     cells[row][col] === 'x' ? setSente('o') : setSente('x')
