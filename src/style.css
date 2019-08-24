@@ -11,6 +11,15 @@ body {
   justify-content: center;
 }
 
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  cursor: pointer;
+}
+
 .cell {
   border: 1px solid black;
   width: 100px;
@@ -43,4 +52,8 @@ body {
   text-align: center;
   margin-bottom: 20px;
   font-size: 50px;
+}
+
+.again {
+  text-decoration: underline;
 }

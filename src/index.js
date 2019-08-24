@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './style.css'
+import getLink from './add-link.js'
 
-
+getLink('//at.alicdn.com/t/font_1366289_c04d3nbkzzi.js')
 
 
 const Cell = function (props) {
   return (
     <div className="cell" onClick={props.onClick}>
-      {props.text}
+      <svg class="icon" aria-hidden="true">
+        <use xlinkHref={`#icon-${props.text}`}></use>
+      </svg>
     </div>
   )
 }
@@ -24,11 +27,8 @@ const Chessboard = function () {
   const [result, setResult] = useState(null)
   const [sente, setSente] = useState('x') //默认是x先手
   const tell = () => {
-    console.log('tell')
-    console.log(cells)
     for (let i = 0; i < 3; i++) {
       if (cells[i][0] !== null && cells[i][0] === cells[i][1] && cells[i][1] === cells[i][2]) {
-        console.log(cells[i][0] + '赢了')
         setFinished(true)
         setResult(cells[i][0])
         return
@@ -36,7 +36,6 @@ const Chessboard = function () {
     }
     for (let i = 0; i < 3; i++) {
       if (cells[0][i] !== null && cells[0][i] === cells[1][i] && cells[1][i] === cells[2][i]) {
-        console.log(cells[0][i] + '赢了')
         setFinished(true)
         setResult(cells[0][i])
         return
@@ -64,21 +63,23 @@ const Chessboard = function () {
 
   }
   const onClickCell = (row, col) => {
-    setN(n + 1)
-    console.log(n) //第一次点击是0，该值更新是异步的吗？因为这是拷贝一份值所以是异步的？而引用地址不变，所以没有异步更新吗？
-    // const copy = JSON.parse(JSON.stringify(cells)) //这一步其实不需要！
-    if (!cells[row][col]) {
-      cells[row][col] = n % 2 === 0 ? 'x' : 'o'
-      cells[row][col] === 'x' ? setSente('o') : setSente('x')
+    if (cells[row][col]) {
+      return
     }
+    setN(n + 1)
+    cells[row][col] = n % 2 === 0 ? 'x' : 'o'
+    cells[row][col] === 'x' ? setSente('o') : setSente('x')
     setCells(cells)
-    console.log(cells) //cells的里边的元素有被填值，这个值到底是不是异步更新的？里边的内容居然不是异步更新的！
-    console.log(cells[0][0] === 'x') //模拟点击第一个Cell，结果为true;如果是异步的，那么就是 null == 'x'了
     tell()
   }
   return (
     <div className="chessBoard">
-      <div className="sente">{`${sente} 下`} </div>
+      <div className="sente">
+        <svg class="icon" aria-hidden="true">
+          <use xlinkHref={`#icon-${sente}`}></use>
+        </svg>
+        下
+      </div>
       {
         cells.map((items, row) =>
           <div className="row">
@@ -90,7 +91,13 @@ const Chessboard = function () {
           </div>
         )
       }
-      {finished && <div className="gameOver">{result} is the winner!</div>}
+      {
+        finished &&
+        <div className="gameOver">
+          {result} win！
+          <svg className="icon again" onClick={() => window.location.reload()} aria-hidden="true"><use xlinkHref="#icon-again"></use></svg>
+        </div>
+      }
     </div>
   )
 }
