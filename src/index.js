@@ -9,7 +9,7 @@ getLink('//at.alicdn.com/t/font_1366289_c04d3nbkzzi.js')
 const Cell = function (props) {
   return (
     <div className="cell" onClick={props.onClick}>
-      <svg class="icon" aria-hidden="true">
+      <svg className="icon" aria-hidden="true">
         <use xlinkHref={`#icon-${props.text}`}></use>
       </svg>
     </div>
@@ -30,14 +30,14 @@ const Chessboard = function () {
     for (let i = 0; i < 3; i++) {
       if (cells[i][0] !== null && cells[i][0] === cells[i][1] && cells[i][1] === cells[i][2]) {
         setFinished(true)
-        setResult(cells[i][0])
+        setResult(cells[i][0] + ' win!')
         return
       }
     }
     for (let i = 0; i < 3; i++) {
       if (cells[0][i] !== null && cells[0][i] === cells[1][i] && cells[1][i] === cells[2][i]) {
         setFinished(true)
-        setResult(cells[0][i])
+        setResult(cells[0][i] + ' win!')
         return
       }
     }
@@ -47,7 +47,7 @@ const Chessboard = function () {
       cells[0][0] !== null
     ) {
       setFinished(true)
-      setResult(cells[0][0])
+      setResult(cells[0][0] + ' win!')
       return
     }
 
@@ -57,8 +57,12 @@ const Chessboard = function () {
       cells[0][2] !== null
     ) {
       setFinished(true)
-      setResult(cells[0][2])
+      setResult(cells[0][2] + ' win!')
       return
+    }
+    if (n === 8) {
+      setFinished(true)
+      setResult('Draw!')
     }
 
   }
@@ -66,6 +70,7 @@ const Chessboard = function () {
     if (cells[row][col]) {
       return
     }
+    console.log(n)
     setN(n + 1)
     cells[row][col] = n % 2 === 0 ? 'x' : 'o'
     cells[row][col] === 'x' ? setSente('o') : setSente('x')
@@ -75,7 +80,7 @@ const Chessboard = function () {
   return (
     <div className="chessBoard">
       <div className="sente">
-        <svg class="icon" aria-hidden="true">
+        <svg className="icon" aria-hidden="true">
           <use xlinkHref={`#icon-${sente}`}></use>
         </svg>
         下
@@ -94,7 +99,7 @@ const Chessboard = function () {
       {
         finished &&
         <div className="gameOver">
-          {result} win！
+          {result}
           <svg className="icon again" onClick={() => window.location.reload()} aria-hidden="true"><use xlinkHref="#icon-again"></use></svg>
         </div>
       }
